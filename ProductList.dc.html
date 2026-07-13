@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script src="./support.js"></script></head><body>
+<x-dc><helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#353735;--muted:#7a7d78;--paper:#f6f7f5;--line:#e2e5df;--green:#58b879;--green-dark:#278454;--shadow:0 14px 34px rgba(46,50,47,.08)}*{box-sizing:border-box}body{margin:0;background:var(--paper);font-family:'Prompt','Noto Sans Thai',sans-serif;color:var(--ink)}a{text-decoration:none;color:inherit}button,input,select{font:inherit}.container{max-width:1240px;margin:auto;padding:0 28px}.topbar{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}.nav{height:76px;display:flex;align-items:center;gap:22px}.brand{display:flex;align-items:center;gap:12px;font-weight:700}.brand img{height:50px}.back{font-size:13px;color:#777a76}.search{margin-left:auto;position:relative;width:min(480px,48vw)}.search input{width:100%;border:1px solid #dcdfda;border-radius:999px;padding:12px 18px 12px 42px;background:#f8f9f7;outline:none}.search span{position:absolute;left:17px;top:50%;transform:translateY(-50%);color:#969994}.filterbar{background:#fff;border-bottom:1px solid var(--line)}.filters{padding:14px 28px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.filters select{padding:10px 38px 10px 13px;border:1px solid #dfe2dc;border-radius:10px;background:#fff;color:#454744}.hero{padding:34px 0 22px}.hero-card{border-radius:24px;padding:28px 30px;color:#fff;display:flex;justify-content:space-between;align-items:end;gap:20px;position:relative;overflow:hidden}.hero-card:after{content:"";position:absolute;width:320px;height:320px;border:2px dashed rgba(255,255,255,.25);border-radius:50%;right:-80px;top:-170px}.hero-card h1{font-size:30px;margin:0 0 8px}.hero-card p{margin:0;color:rgba(255,255,255,.82);font-size:13px}.hero-stat{text-align:right;position:relative;z-index:2}.hero-stat b{font-size:42px;line-height:1;display:block}.hero-stat span{font-size:12px}.content{padding:10px 0 52px}.toolbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:12px 0 18px}.toolbar small{color:var(--muted)}.export{border:0;border-radius:11px;padding:11px 16px;color:#fff;font-weight:700;cursor:pointer}.view-toggle{display:flex;background:#ebede9;border-radius:10px;padding:3px}.view-toggle button{border:0;background:transparent;padding:7px 10px;border-radius:8px;cursor:pointer}.view-toggle button.active{background:#fff;box-shadow:0 3px 10px rgba(0,0,0,.06)}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.product{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 8px 20px rgba(52,57,53,.04);display:flex;flex-direction:column}.thumb{height:130px;padding:18px;color:#fff;position:relative;overflow:hidden}.thumb:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.15);right:-40px;bottom:-78px}.thumb .code{font:600 11px/1 ui-monospace,monospace;background:rgba(255,255,255,.22);padding:6px 8px;border-radius:7px;display:inline-block}.thumb .icon{font-size:40px;position:absolute;right:22px;bottom:14px}.product-body{padding:17px;display:flex;flex-direction:column;flex:1}.product h3{font-size:15px;line-height:1.5;margin:0 0 12px;min-height:45px}.tags{display:flex;gap:6px;flex-wrap:wrap}.tag{font-size:11px;border-radius:999px;background:#f0f2ee;color:#6d706b;padding:5px 8px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:auto;padding-top:16px}.actions a{text-align:center;padding:9px;border-radius:9px;font-size:12px;font-weight:700}.outline{border:1px solid #d9ddd7}.solid{background:#333;color:#fff}.select-row{position:absolute;left:15px;bottom:14px;z-index:2}.select-row input{width:18px;height:18px}.table-wrap{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:auto}.table{width:100%;border-collapse:collapse;font-size:13px;min-width:850px}.table th{background:#f0f2ee;color:#696c68;text-align:left;padding:12px;border-bottom:1px solid var(--line)}.table td{padding:12px;border-bottom:1px solid #edf0eb}.empty{background:#fff;border:1px dashed #cfd4cd;border-radius:18px;padding:52px;text-align:center;color:var(--muted)}@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:640px){.container{padding:0 16px}.nav{height:auto;padding:12px 0;flex-wrap:wrap}.brand img{height:44px}.search{order:3;width:100%}.filters{padding:12px 16px}.filters select{flex:1;min-width:140px}.hero-card{align-items:flex-start}.hero-stat{display:none}.grid{grid-template-columns:1fr}.toolbar{align-items:flex-start;flex-direction:column}.export{width:100%}}
+</style></helmet>
+<div><header class="topbar"><div class="container nav"><a class="brand" href="MainPage.dc.html"><img src="logo-header.png" alt="Aksorn"><span>Smart Digital Content</span></a><a class="back" href="MainPage.dc.html">← กลับหน้าหลัก</a>
+  <div class="search"><span>⌕</span><input type="text" placeholder="ค้นหาชื่อสินค้า หรือรหัสสินค้า" value="{{ q }}" onInput="{{ setQ }}"></div>
+</div></header>
+<div class="filterbar"><div class="container filters">
+  <select value="{{ catFilter }}" onChange="{{ setCatFilter }}"><sc-for list="{{ categoryOptions }}" as="c"><option value="{{ c.slug }}">{{ c.name }}</option></sc-for></select>
+  <select value="{{ subject }}" onChange="{{ setSubject }}"><option value="all">ทุกวิชา</option><sc-for list="{{ subjectOptions }}" as="s"><option value="{{ s }}">{{ s }}</option></sc-for></select>
+  <select value="{{ level }}" onChange="{{ setLevel }}"><option value="all">ทุกระดับชั้น</option><sc-for list="{{ levelOptions }}" as="l"><option value="{{ l }}">{{ l }}</option></sc-for></select>
+</div></div>
+<main><section class="hero"><div class="container"><div class="hero-card" style="background:{{ heroColor }}"><div><p>สถานีรถไฟแห่งทักษะ</p><h1>{{ catName }}</h1><p>{{ catDescription }}</p></div><div class="hero-stat"><b>{{ filteredCount }}</b><span>รายการที่พบ</span></div></div></div></section>
+<section class="content"><div class="container"><div class="toolbar"><div><b>รายการสื่อทั้งหมด</b><br><small>รวม {{ totalCount }} รายการ · แสดง {{ filteredCount }} รายการ · เลือกแล้ว {{ selectedCount }} รายการ</small></div><div style="display:flex;gap:8px;align-items:center"><div class="view-toggle"><button class="{{ gridActive }}" onClick="{{ showGrid }}">▦</button><button class="{{ tableActive }}" onClick="{{ showTable }}">☰</button></div><button class="export" onClick="{{ exportCsv }}" disabled="{{ noneSelected }}" style="background:{{ exportBg }}">⬇ บันทึกรายการที่เลือกเป็น Excel ( {{ selectedCount }} )</button></div></div>
+<sc-if value="{{ hasProducts }}"><sc-if value="{{ isGrid }}"><div class="grid"><sc-for list="{{ visibleProducts }}" as="p"><article class="product"><div class="thumb" style="background:{{ p.color }}"><span class="code">{{ p.code }}</span><span class="icon">{{ p.icon }}</span><label class="select-row"><input type="checkbox" checked="{{ p.selected }}" onChange="{{ p.toggle }}"></label></div><div class="product-body"><h3>{{ p.name }}</h3><div class="tags"><span class="tag">{{ p.subject }}</span><span class="tag">{{ p.level }}</span></div><div class="actions"><a class="outline" href="{{ p.flipHref }}" target="_blank" rel="noopener">ดูโชว์เคส</a><a class="solid" href="{{ p.webHref }}" target="_blank" rel="noopener">ดูบนเว็บ</a></div></div></article></sc-for></div></sc-if>
+<sc-if value="{{ isTable }}"><div class="table-wrap"><table class="table"><thead><tr><th><input type="checkbox" checked="{{ allSelected }}" onChange="{{ toggleSelectAll }}"></th><th>ชื่อสินค้า</th><th>รหัสสินค้า</th><th>วิชา</th><th>ระดับชั้น</th><th>โชว์เคส</th><th>หน้าเว็บ</th></tr></thead><tbody><sc-for list="{{ visibleProducts }}" as="p"><tr><td><input type="checkbox" checked="{{ p.selected }}" onChange="{{ p.toggle }}"></td><td>{{ p.name }}</td><td>{{ p.code }}</td><td>{{ p.subject }}</td><td>{{ p.level }}</td><td style="color:#278454; font-weight:600;"><a href="{{ p.flipHref }}" target="_blank">ดูโชว์เคส</a></td><td style="color:#278454; font-weight:600;"><a href="{{ p.webHref }}" target="_blank">ดูบนเว็บ</a></td></tr></sc-for></tbody></table></div></sc-if></sc-if>
+<sc-if value="{{ isEmpty }}"><div class="empty">ไม่พบสินค้าตามเงื่อนไขที่เลือก<br><small>ลองเปลี่ยนคำค้นหา วิชา หรือระดับชั้น</small></div></sc-if>
+</div></section></main></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+ state={ready:false,categories:[],allProducts:[],selected:{},catFilter:'all',subject:'all',level:'all',q:'',view:'grid'};
+ componentDidMount(){
+   import('./products-data.js').then(mod=>{
+     const p=new URLSearchParams(location.search);
+     const cat=p.get('cat')||'all';
+     const subject=p.get('subject')||'all';
+     const level=p.get('level')||'all';
+     const q=p.get('q')||'';
+     
+     let allProducts=mod.ALL_PRODUCTS;
+     this.setState({ready:true,categories:mod.CATEGORIES,allProducts,catFilter:cat,subject,level,q});
+   });
+ }
+ 
+ matches(p){
+   const s=this.state;
+   if(s.catFilter!=='all' && !p.id.startsWith(s.catFilter)) return false;
+   if(s.subject!=='all'&&p.subject!==s.subject)return false;
+   
+   // 🆕 ปรับ Logic คัดกรองระดับชั้นอัจฉริยะ รองรับช่วงชั้นจริงจาก Excel
+   if(s.level!=='all'){
+     const lvl = s.level;
+     if(lvl==='ปฐมวัย'){
+       if(!p.level.includes('ปฐมวัย') && !p.level.includes('อนุบาล')) return false;
+     } else if(lvl.startsWith('ป.')){
+       if(!p.level.includes(lvl) && !p.level.includes('ป.1-3') && !p.level.includes('ป.1-6')){
+         if((lvl==='ป.4'||lvl==='ป.5'||lvl==='ป.6') && p.level.includes('ป.4-6')){
+           // ผ่านเงื่อนไข
+         } else {
+           return false;
+         }
+       }
+     } else if(lvl.startsWith('ม.')){
+       if(!p.level.includes(lvl) && !p.level.includes('ม.1-3') && !p.level.includes('ม.4-6')) return false;
+     }
+   }
+   
+   const q=s.q.trim().toLowerCase();
+   if(q&&!p.name.toLowerCase().includes(q)&&!p.code.toLowerCase().includes(q))return false;
+   return true;
+ }
+ 
+ toggle(id){this.setState(s=>({selected:{...s.selected,[id]:!s.selected[id]}}));}
+ toggleSelectAll(v){const on=v.every(p=>this.state.selected[p.id]);const n={...this.state.selected};v.forEach(p=>n[p.id]=!on);this.setState({selected:n});}
+ exportCsv(rows){const h=['ชื่อสินค้า','รหัสสินค้า','วิชา','ระดับชั้น'];const lines=[h.join(',')];rows.forEach(p=>lines.push([p.name,p.code,p.subject,p.level].map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')));const b=new Blob(['\uFEFF'+lines.join('\r\n')],{type:'text/csv;charset=utf-8;'});const u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='smart-digital-content.csv';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(u);}
+ renderVals(){
+   const subjects=['คณิตศาสตร์','บูรณาการ','ภาษาต่างประเทศ','ภาษาไทย','ภาษาอังกฤษ','วิทยาศาสตร์','สังคม'];
+   const levels=['ปฐมวัย','ป.1','ป.2','ป.3','ป.4','ป.5','ป.6','ม.1','ม.2','ม.3','ม.4','ม.5','ม.6'];
+   const opts=[{slug:'all',name:'ทุกเส้นทาง'},...this.state.categories];
+   
+   const filtered=this.state.allProducts.filter(p=>this.matches(p));
+   const colorMap={reading:'#d85443',math:'#f0c93e',stem:'#58bccb',life:'#7758ad'};
+   const iconMap={reading:'✍️',math:'➗',stem:'🔬',life:'🌱'};
+   
+   const visible=filtered.map(p=>({...p,color:colorMap[p.id.split('-')[0]]||'#58b879',icon:iconMap[p.id.split('-')[0]]||'📘',selected:!!this.state.selected[p.id],toggle:()=>this.toggle(p.id),flipHref:'https://online.fliphtml5.com/jzqtt/260629_b_Smart-Digital-Content-edit/',webHref:'https://ain.aksorn.com/digital69'}));
+   const selected=filtered.filter(p=>this.state.selected[p.id]);
+   const cat=this.state.categories.find(c=>c.slug===this.state.catFilter);
+   const desc={reading:'อ่าน-เขียน พัฒนาภาษา',math:'คณิตศาสตร์',stem:'วิทยาศาสตร์ STEM/STEAM CT/CS',life:'ทักษะชีวิตและความรู้ทั่วไป'};
+   
+   // 🆕 แก้ไขตัวนับ totalCount ให้อ้างอิงจากความจริงของกลุ่มที่เลือกในฐานข้อมูลจริง
+   const computedTotal=this.state.catFilter==='all'?this.state.allProducts.length:this.state.allProducts.filter(p=>p.id.startsWith(this.state.catFilter)).length;
+   
+   return{
+     categoryOptions:opts,
+     subjectOptions:subjects,
+     levelOptions:levels,
+     catFilter:this.state.catFilter,
+     subject:this.state.subject,
+     level:this.state.level,
+     q:this.state.q,
+     catName:this.state.catFilter==='all'?'สื่อดิจิทัลทั้งหมด':(cat?cat.name:''),
+     catDescription:this.state.catFilter==='all'?'เลือกสื่อที่เหมาะกับผู้เรียนได้จากทุก Route':desc[this.state.catFilter],
+     heroColor:this.state.catFilter==='all'?'#58b879':colorMap[this.state.catFilter],
+     totalCount:computedTotal,
+     filteredCount:filtered.length,
+     selectedCount:selected.length,
+     visibleProducts:visible,
+     hasProducts:filtered.length>0,
+     isEmpty:this.state.ready&&filtered.length===0,
+     isGrid:this.state.view==='grid',
+     isTable:this.state.view==='table',
+     gridActive:this.state.view==='grid'?'active':'',
+     tableActive:this.state.view==='table'?'active':'',
+     allSelected:visible.length>0&&visible.every(p=>p.selected),
+     noneSelected:selected.length===0,
+     exportBg:selected.length?'#58b879':'#b9bdb7',
+     setCatFilter:e=>this.setState({catFilter:e.target.value}),
+     setSubject:e=>this.setState({subject:e.target.value}),
+     setLevel:e=>this.setState({level:e.target.value}),
+     setQ:e=>this.setState({q:e.target.value}),
+     toggleSelectAll:()=>this.toggleSelectAll(visible),
+     exportCsv:()=>this.exportCsv(selected),
+     showGrid:()=>this.setState({view:'grid'}),
+     showTable:()=>this.setState({view:'table'})
+   };
+ }
+}
+</script></body></html>
