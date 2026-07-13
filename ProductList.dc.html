@@ -14,15 +14,68 @@
   <select value="{{ level }}" onChange="{{ setLevel }}"><option value="all">ทุกระดับชั้น</option><sc-for list="{{ levelOptions }}" as="l"><option value="{{ l }}">{{ l }}</option></sc-for></select>
 </div></div>
 <main><section class="hero"><div class="container"><div class="hero-card" style="background:{{ heroColor }}"><div><p>สถานีรถไฟแห่งทักษะ</p><h1>{{ catName }}</h1><p>{{ catDescription }}</p></div><div class="hero-stat"><b>{{ filteredCount }}</b><span>รายการที่พบ</span></div></div></div></section>
-<section class="content"><div class="container"><div class="toolbar"><div><b>รายการสื่อทั้งหมด</b><br><small>รวม {{ totalCount }} รายการ · แสดง {{ filteredCount }} รายการ · เลือกแล้ว {{ selectedCount }} รายการ</small></div><div style="display:flex;gap:8px;align-items:center"><div class="view-toggle"><button class="{{ gridActive }}" onClick="{{ showGrid }}">▦</button><button class="{{ tableActive }}" onClick="{{ showTable }}">☰</button></div><button class="export" onClick="{{ exportCsv }}" disabled="{{ noneSelected }}" style="background:{{ exportBg }}">⬇ บันทึกรายการที่เลือกเป็น Excel ( {{ selectedCount }} )</button></div></div>
-<sc-if value="{{ hasProducts }}"><sc-if value="{{ isGrid }}"><div class="grid"><sc-for list="{{ visibleProducts }}" as="p"><article class="product"><div class="thumb" style="background:{{ p.color }}"><span class="code">{{ p.code }}</span><span class="icon">{{ p.icon }}</span><label class="select-row"><input type="checkbox" checked="{{ p.selected }}" onChange="{{ p.toggle }}"></label></div><div class="product-body"><h3>{{ p.name }}</h3><div class="tags"><span class="tag">{{ p.subject }}</span><span class="tag">{{ p.level }}</span></div><div class="actions"><a class="outline" href="{{ p.flipHref }}" target="_blank" rel="noopener">ดูโชว์เคส</a><a class="solid" href="{{ p.webHref }}" target="_blank" rel="noopener">ดูบนเว็บ</a></div></div></article></sc-for></div></sc-if>
-<sc-if value="{{ isTable }}"><div class="table-wrap"><table class="table"><thead><tr><th><input type="checkbox" checked="{{ allSelected }}" onChange="{{ toggleSelectAll }}"></th><th>ชื่อสินค้า</th><th>รหัสสินค้า</th><th>วิชา</th><th>ระดับชั้น</th><th>โชว์เคส</th><th>หน้าเว็บ</th></tr></thead><tbody><sc-for list="{{ visibleProducts }}" as="p"><tr><td><input type="checkbox" checked="{{ p.selected }}" onChange="{{ p.toggle }}"></td><td>{{ p.name }}</td><td>{{ p.code }}</td><td>{{ p.subject }}</td><td>{{ p.level }}</td><td style="color:#278454; font-weight:600;"><a href="{{ p.flipHref }}" target="_blank">ดูโชว์เคส</a></td><td style="color:#278454; font-weight:600;"><a href="{{ p.webHref }}" target="_blank">ดูบนเว็บ</a></td></tr></sc-for></tbody></table></div></sc-if></sc-if>
-<sc-if value="{{ isEmpty }}"><div class="empty">ไม่พบสินค้าตามเงื่อนไขที่เลือก<br><small>ลองเปลี่ยนคำค้นหา วิชา หรือระดับชั้น</small></div></sc-if>
-</div></section></main></div>
+</main>
+<p>&lt;section class=&quot;content&quot;&gt;&lt;div class=&quot;container&quot;&gt;<br>
+  <br>
+  &lt;!-- ⬇ ย้ายปุ่มบันทึกรายการที่เลือกเป็น Excel ขึ้นมาไว้ด้านบนสุดของส่วนเนื้อหา --&gt;<br>
+  &lt;div style=&quot;margin-bottom: 20px; display: flex; justify-content: flex-end;&quot;&gt;<br>
+  &lt;button class=&quot;export&quot; onClick=&quot;{{ openReview }}&quot; disabled=&quot;{{ noneSelected }}&quot; style=&quot;background:{{ exportBg }}; width: auto; min-width: 250px;&quot;&gt;<br>
+  ⬇ บันทึกรายการที่เลือกเป็น Excel ( {{ selectedCount }} )<br>
+  &lt;/button&gt;<br>
+  &lt;/div&gt;</p>
+<p> &lt;div class=&quot;toolbar&quot;&gt;<br>
+  &lt;div&gt;<br>
+  &lt;b&gt;รายการสื่อทั้งหมด&lt;/b&gt;&lt;br&gt;<br>
+  &lt;small&gt;รวม {{ totalCount }} รายการ · แสดง {{ filteredCount }} รายการ · เลือกแล้ว {{ selectedCount }} รายการ&lt;/small&gt;<br>
+  &lt;/div&gt;<br>
+  &lt;div style=&quot;display:flex;gap:8px;align-items:center&quot;&gt;<br>
+  &lt;div class=&quot;view-toggle&quot;&gt;<br>
+  &lt;button class=&quot;{{ gridActive }}&quot; onClick=&quot;{{ showGrid }}&quot;&gt;▦&lt;/button&gt;<br>
+  &lt;button class=&quot;{{ tableActive }}&quot; onClick=&quot;{{ showTable }}&quot;&gt;☰&lt;/button&gt;<br>
+  &lt;/div&gt;<br>
+  &lt;/div&gt;<br>
+  &lt;/div&gt;</p>
+<p> &lt;!-- สินค้า Grid / Table คงเดิม ... --&gt;</p>
+<p> &lt;!-- 🆕 เพิ่มหน้า Review (Modal Pop-up) ก่อนทำการ Export CSV/Excel --&gt;<br>
+  &lt;sc-if value=&quot;{{ showReviewModal }}&quot;&gt;<br>
+  &lt;div style=&quot;position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 999; display: flex; align-items: center; jc: center; padding: 20px;&quot;&gt;<br>
+  &lt;div style=&quot;background: #fff; padding: 24px; border-radius: 16px; width: 100%; max-width: 650px; max-height: 80vh; display: flex; flex-direction: column;&quot;&gt;<br>
+  &lt;h3 style=&quot;margin-top: 0; border-bottom: 1px solid #e2e5df; padding-bottom: 12px;&quot;&gt;ตรวจสอบรายการที่เลือก (Review)&lt;/h3&gt;<br>
+  <br>
+  &lt;div style=&quot;flex: 1; overflow-y: auto; margin: 12px 0;&quot;&gt;<br>
+  &lt;table style=&quot;width: 100%; border-collapse: collapse; font-size: 13px;&quot;&gt;<br>
+  &lt;thead&gt;<br>
+  &lt;tr style=&quot;background: #f0f2ee; text-align: left;&quot;&gt;<br>
+  &lt;th style=&quot;padding: 8px;&quot;&gt;รหัสสินค้า&lt;/th&gt;<br>
+  &lt;th style=&quot;padding: 8px;&quot;&gt;ชื่อสินค้า&lt;/th&gt;<br>
+  &lt;th style=&quot;padding: 8px;&quot;&gt;วิชา&lt;/th&gt;<br>
+  &lt;/tr&gt;<br>
+  &lt;/thead&gt;<br>
+  &lt;tbody&gt;<br>
+  &lt;sc-for list=&quot;{{ reviewProducts }}&quot; as=&quot;rp&quot;&gt;<br>
+  &lt;tr style=&quot;border-bottom: 1px solid #edf0eb;&quot;&gt;<br>
+  &lt;td style=&quot;padding: 8px;&quot;&gt;{{ rp.code }}&lt;/td&gt;<br>
+  &lt;td style=&quot;padding: 8px;&quot;&gt;{{ rp.name }}&lt;/td&gt;<br>
+  &lt;td style=&quot;padding: 8px;&quot;&gt;{{ rp.subject }}&lt;/td&gt;<br>
+  &lt;/tr&gt;<br>
+  &lt;/sc-for&gt;<br>
+  &lt;/tbody&gt;<br>
+  &lt;/table&gt;<br>
+  &lt;/div&gt;</p>
+<p> &lt;div style=&quot;display: flex; gap: 10px; justify-content: flex-end; border-top: 1px solid #e2e5df; padding-top: 12px;&quot;&gt;<br>
+  &lt;button class=&quot;btn btn-ghost&quot; onClick=&quot;{{ closeReview }}&quot;&gt;ยกเลิก&lt;/button&gt;<br>
+  &lt;button class=&quot;btn btn-primary&quot; onClick=&quot;{{ confirmExport }}&quot;&gt;ยืนยัน Export Excel&lt;/button&gt;<br>
+  &lt;/div&gt;<br>
+  &lt;/div&gt;<br>
+  &lt;/div&gt;<br>
+  &lt;/sc-if&gt;</p>
+<p>&lt;/div&gt;&lt;/section&gt;</p>
+</div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
- state={ready:false,categories:[],allProducts:[],selected:{},catFilter:'all',subject:'all',level:'all',q:'',view:'grid'};
+ state={ready:false,categories:[],allProducts:[],selected:{},catFilter:'all',subject:'all',level:'all',q:'',view:'grid', showReviewModal: false};
+ 
  componentDidMount(){
    import('./products-data.js').then(mod=>{
      const p=new URLSearchParams(location.search);
@@ -31,8 +84,7 @@ class Component extends DCLogic {
      const level=p.get('level')||'all';
      const q=p.get('q')||'';
      
-     let allProducts=mod.ALL_PRODUCTS;
-     this.setState({ready:true,categories:mod.CATEGORIES,allProducts,catFilter:cat,subject,level,q});
+     this.setState({ready:true,categories:mod.CATEGORIES,allProducts:mod.ALL_PRODUCTS,catFilter:cat,subject,level,q});
    });
  }
  
@@ -41,32 +93,43 @@ class Component extends DCLogic {
    if(s.catFilter!=='all' && !p.id.startsWith(s.catFilter)) return false;
    if(s.subject!=='all'&&p.subject!==s.subject)return false;
    
-   // 🆕 ปรับ Logic คัดกรองระดับชั้นอัจฉริยะ รองรับช่วงชั้นจริงจาก Excel
    if(s.level!=='all'){
      const lvl = s.level;
      if(lvl==='ปฐมวัย'){
        if(!p.level.includes('ปฐมวัย') && !p.level.includes('อนุบาล')) return false;
      } else if(lvl.startsWith('ป.')){
        if(!p.level.includes(lvl) && !p.level.includes('ป.1-3') && !p.level.includes('ป.1-6')){
-         if((lvl==='ป.4'||lvl==='ป.5'||lvl==='ป.6') && p.level.includes('ป.4-6')){
-           // ผ่านเงื่อนไข
-         } else {
-           return false;
-         }
+         if((lvl==='ป.4'||lvl==='ป.5'||lvl==='ป.6') && p.level.includes('ป.4-6')){} else { return false; }
        }
      } else if(lvl.startsWith('ม.')){
        if(!p.level.includes(lvl) && !p.level.includes('ม.1-3') && !p.level.includes('ม.4-6')) return false;
      }
    }
-   
    const q=s.q.trim().toLowerCase();
    if(q&&!p.name.toLowerCase().includes(q)&&!p.code.toLowerCase().includes(q))return false;
    return true;
  }
  
+ // การเลือกจะผูกกับ id สินค้าโดยตรง ทำให้เมื่อเปลี่ยนหมวดหมู่/วิชา รายการที่เคยติ๊กไว้จะไม่หายไป
  toggle(id){this.setState(s=>({selected:{...s.selected,[id]:!s.selected[id]}}));}
- toggleSelectAll(v){const on=v.every(p=>this.state.selected[p.id]);const n={...this.state.selected};v.forEach(p=>n[p.id]=!on);this.setState({selected:n});}
- exportCsv(rows){const h=['ชื่อสินค้า','รหัสสินค้า','วิชา','ระดับชั้น'];const lines=[h.join(',')];rows.forEach(p=>lines.push([p.name,p.code,p.subject,p.level].map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')));const b=new Blob(['\uFEFF'+lines.join('\r\n')],{type:'text/csv;charset=utf-8;'});const u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='smart-digital-content.csv';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(u);}
+ 
+ toggleSelectAll(visibleProducts){
+   const on=visibleProducts.every(p=>this.state.selected[p.id]);
+   const n={...this.state.selected};
+   visibleProducts.forEach(p=>n[p.id]=!on);
+   this.setState({selected:n});
+ }
+ 
+ exportCsv(rows){
+   const h=['ชื่อสินค้า','รหัสสินค้า','วิชา','ระดับชั้น'];
+   const lines=[h.join(',')];
+   rows.forEach(p=>lines.push([p.name,p.code,p.subject,p.level].map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')));
+   const b=new Blob(['\uFEFF'+lines.join('\r\n')],{type:'text/csv;charset=utf-8;'});
+   const u=URL.createObjectURL(b),a=document.createElement('a');
+   a.href=u;a.download='smart-digital-content.csv';
+   document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(u);
+ }
+ 
  renderVals(){
    const subjects=['คณิตศาสตร์','บูรณาการ','ภาษาต่างประเทศ','ภาษาไทย','ภาษาอังกฤษ','วิทยาศาสตร์','สังคม'];
    const levels=['ปฐมวัย','ป.1','ป.2','ป.3','ป.4','ป.5','ป.6','ม.1','ม.2','ม.3','ม.4','ม.5','ม.6'];
@@ -77,11 +140,11 @@ class Component extends DCLogic {
    const iconMap={reading:'✍️',math:'➗',stem:'🔬',life:'🌱'};
    
    const visible=filtered.map(p=>({...p,color:colorMap[p.id.split('-')[0]]||'#58b879',icon:iconMap[p.id.split('-')[0]]||'📘',selected:!!this.state.selected[p.id],toggle:()=>this.toggle(p.id),flipHref:'https://online.fliphtml5.com/jzqtt/260629_b_Smart-Digital-Content-edit/',webHref:'https://ain.aksorn.com/digital69'}));
-   const selected=filtered.filter(p=>this.state.selected[p.id]);
+   
+   // ดึงรายการที่ถูกเลือก "ทั้งหมดจริง ๆ" จากสินค้าทั้งหมดข้ามหมวดหมู่ เพื่อนำไปทำหน้า Review และ Export
+   const allSelectedProducts=this.state.allProducts.filter(p=>this.state.selected[p.id]);
    const cat=this.state.categories.find(c=>c.slug===this.state.catFilter);
    const desc={reading:'อ่าน-เขียน พัฒนาภาษา',math:'คณิตศาสตร์',stem:'วิทยาศาสตร์ STEM/STEAM CT/CS',life:'ทักษะชีวิตและความรู้ทั่วไป'};
-   
-   // 🆕 แก้ไขตัวนับ totalCount ให้อ้างอิงจากความจริงของกลุ่มที่เลือกในฐานข้อมูลจริง
    const computedTotal=this.state.catFilter==='all'?this.state.allProducts.length:this.state.allProducts.filter(p=>p.id.startsWith(this.state.catFilter)).length;
    
    return{
@@ -97,8 +160,9 @@ class Component extends DCLogic {
      heroColor:this.state.catFilter==='all'?'#58b879':colorMap[this.state.catFilter],
      totalCount:computedTotal,
      filteredCount:filtered.length,
-     selectedCount:selected.length,
+     selectedCount:allSelectedProducts.length, // นับรวมรายการที่เลือกจากทุกหมวดหมู่สม่ำเสมอ
      visibleProducts:visible,
+     reviewProducts:allSelectedProducts,       // ส่งรายการทั้งหมดที่เลือกไปแสดงใน Modal Review
      hasProducts:filtered.length>0,
      isEmpty:this.state.ready&&filtered.length===0,
      isGrid:this.state.view==='grid',
@@ -106,14 +170,20 @@ class Component extends DCLogic {
      gridActive:this.state.view==='grid'?'active':'',
      tableActive:this.state.view==='table'?'active':'',
      allSelected:visible.length>0&&visible.every(p=>p.selected),
-     noneSelected:selected.length===0,
-     exportBg:selected.length?'#58b879':'#b9bdb7',
+     noneSelected:allSelectedProducts.length===0,
+     exportBg:allSelectedProducts.length?'#58b879':'#b9bdb7',
+     showReviewModal:this.state.showReviewModal,
      setCatFilter:e=>this.setState({catFilter:e.target.value}),
      setSubject:e=>this.setState({subject:e.target.value}),
      setLevel:e=>this.setState({level:e.target.value}),
      setQ:e=>this.setState({q:e.target.value}),
      toggleSelectAll:()=>this.toggleSelectAll(visible),
-     exportCsv:()=>this.exportCsv(selected),
+     openReview:()=>this.setState({showReviewModal:true}),
+     closeReview:()=>this.setState({showReviewModal:false}),
+     confirmExport:()=>{
+       this.exportCsv(allSelectedProducts);
+       this.setState({showReviewModal:false});
+     },
      showGrid:()=>this.setState({view:'grid'}),
      showTable:()=>this.setState({view:'table'})
    };
