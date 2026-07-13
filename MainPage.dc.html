@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#303330;--muted:#747873;--paper:#f7f8f6;--line:#e3e6e1;--green:#56b879;--green-dark:#2c8555;--yellow:#f0c93e;--red:#d85443;--cyan:#58bccb;--purple:#7758ad;--shadow:0 10px 28px rgba(39,47,41,.08)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);font-family:'Prompt','Noto Sans Thai',sans-serif;color:var(--ink)}a{text-decoration:none;color:inherit}button,input,select{font:inherit}.container{max-width:1160px;margin:0 auto;padding:0 24px}
+.topbar{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}.nav{min-height:72px;display:flex;align-items:center;gap:22px}.brand img{height:48px;width:auto;display:block}.nav-links{display:flex;gap:22px;font-size:13px;font-weight:600;color:#666b66}.nav-links a:hover{color:var(--green-dark)}.nav-cta{margin-left:auto;display:flex;gap:10px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;padding:0 18px;border-radius:10px;font-size:13px;font-weight:700;border:1px solid transparent}.btn-primary{background:var(--green);color:#fff}.btn-primary:hover{background:#49a96b}.btn-ghost{background:#fff;border-color:#dfe3dd;color:#4e534e}
+.hero{padding:34px 0 28px}.hero-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px;display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center;box-shadow:var(--shadow)}.eyebrow{font-size:12px;font-weight:700;color:var(--green-dark);margin-bottom:10px}.hero h1{font-size:clamp(34px,5vw,58px);line-height:1.04;letter-spacing:-1.8px;margin:0 0 12px}.hero h1 span{color:var(--green)}.hero p{margin:0 0 20px;max-width:600px;color:var(--muted);font-size:15px;line-height:1.7}.search-panel{display:grid;grid-template-columns:1fr 150px 150px auto;gap:10px}.search-wrap{position:relative}.search-wrap span{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#929691}.search-wrap input,.search-panel select{width:100%;height:44px;border:1px solid #dce0da;border-radius:10px;background:#fafbf9;color:#333;padding:0 13px;outline:none}.search-wrap input{padding-left:38px}.search-wrap input:focus,.search-panel select:focus{border-color:#7bc799;box-shadow:0 0 0 3px rgba(86,184,121,.12)}.hero-visual{min-height:250px;border-radius:18px;overflow:hidden;background:#f1f0f3}.hero-visual img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+.routes{padding:22px 0 46px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:16px}.section-head h2{margin:0;font-size:25px}.section-head p{margin:5px 0 0;color:var(--muted);font-size:13px}.route-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.route-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;min-height:190px;display:flex;flex-direction:column;transition:.18s}.route-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}.route-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.route-dot{width:12px;height:12px;border-radius:50%}.route-no{font-size:11px;font-weight:700;color:#8b8f8a}.route-card h3{margin:0 0 8px;font-size:17px;line-height:1.35}.route-card p{margin:0;color:var(--muted);font-size:12.5px;line-height:1.55}.route-bottom{margin-top:auto;padding-top:16px;display:flex;justify-content:space-between;align-items:center;border-top:1px dashed #e4e7e2;font-size:12px}.route-bottom b{font-size:12.5px}
+.value-strip{margin-top:4px;background:#2f332f;color:#fff}.value-grid{display:grid;grid-template-columns:repeat(4,1fr)}.value-item{padding:18px 20px;border-right:1px solid rgba(255,255,255,.1)}.value-item:last-child{border-right:none}.value-item b{display:block;font-size:13px;margin-bottom:4px}.value-item span{display:block;color:#bfc4bf;font-size:11.5px;line-height:1.45}.footer{padding:22px 0;background:#fff;border-top:1px solid var(--line)}.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}.footer-left{display:flex;align-items:center;gap:12px}.footer-left img{height:42px}.footer-left span{font-size:12px;color:var(--muted)}.footer-actions{display:flex;gap:9px;flex-wrap:wrap}
+@media(max-width:960px){.nav-links{display:none}.hero-card{grid-template-columns:1fr}.hero-visual{max-height:280px}.search-panel{grid-template-columns:1fr 1fr}.search-wrap{grid-column:1/-1}.route-grid{grid-template-columns:repeat(2,1fr)}.value-grid{grid-template-columns:repeat(2,1fr)}.value-item:nth-child(2){border-right:none}.value-item:nth-child(-n+2){border-bottom:1px solid rgba(255,255,255,.1)}
+@media(max-width:620px){.container{padding:0 16px}.nav{min-height:64px}.brand img{height:42px}.nav-cta .btn-ghost{display:none}.hero{padding-top:18px}.hero-card{padding:20px;border-radius:18px}.hero h1{font-size:38px}.hero-visual{min-height:190px}.search-panel{grid-template-columns:1fr}.search-wrap{grid-column:auto}.search-panel .btn{width:100%}.section-head{align-items:flex-start}.route-grid,.value-grid{grid-template-columns:1fr}.value-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.1)}.value-item:last-child{border-bottom:none}.footer-inner{align-items:flex-start}.footer-actions{width:100%}.footer-actions .btn{flex:1}}
+</style>
+</helmet>
+<div>
+<header class="topbar"><div class="container nav">
+  <a class="brand" href="MainPage.dc.html"><img src="logo-header.png" alt="Aksorn Smart Digital Content"></a>
+  <nav class="nav-links"><a href="#routes">กลุ่มสินค้า</a><a href="ProductList.dc.html?cat=all">สินค้าทั้งหมด</a></nav>
+  <div class="nav-cta"><a class="btn btn-ghost" href="https://online.fliphtml5.com/jzqtt/260629_b_Smart-Digital-Content-edit/" target="_blank" rel="noopener">ดู E-Catalog</a><a class="btn btn-primary" href="https://ain.aksorn.com/digital69" target="_blank" rel="noopener">ชม Demo</a></div>
+</div></header>
+
+<main>
+<section class="hero"><div class="container"><div class="hero-card">
+  <div>
+    <div class="eyebrow">SMART DIGITAL CONTENT · ANYWHERE ANYTIME</div>
+    <h1>ค้นหาสื่อที่ใช่<br><span>พร้อมใช้ในห้องเรียน</span></h1>
+    <p>เลือกสื่อดิจิทัลตามกลุ่มทักษะ วิชา และระดับชั้น เพื่อช่วยครูเตรียมการสอนได้เร็วขึ้น และเปิดโอกาสให้ผู้เรียนฝึกซ้ำได้ทุกที่ทุกเวลา</p>
+    <div class="search-panel">
+      <div class="search-wrap"><span>⌕</span><input type="text" placeholder="ค้นหาชื่อสินค้า หรือรหัสสินค้า" value="{{ q }}" onInput="{{ setQ }}"></div>
+      <select value="{{ subject }}" onChange="{{ setSubject }}"><option value="all">ทุกวิชา</option><sc-for list="{{ subjectOptions }}" as="s"><option value="{{ s }}">{{ s }}</option></sc-for></select>
+      <select value="{{ level }}" onChange="{{ setLevel }}"><option value="all">ทุกระดับชั้น</option><sc-for list="{{ levelOptions }}" as="l"><option value="{{ l }}">{{ l }}</option></sc-for></select>
+      <a class="btn btn-primary" href="{{ searchHref }}">ค้นหา</a>
+    </div>
+  </div>
+  <div class="hero-visual"><img src="111.png" alt="Smart Digital Content"></div>
+</div></div></section>
+
+<section class="routes" id="routes"><div class="container">
+  <div class="section-head"><div><h2>เลือกตามกลุ่มทักษะ</h2><p>4 เส้นทางการเรียนรู้ ตั้งแต่ปฐมวัยถึงมัธยมศึกษา</p></div><a class="btn btn-ghost" href="ProductList.dc.html?cat=all">ดูทั้งหมด</a></div>
+  <div class="route-grid"><sc-for list="{{ categories }}" as="cat" hint-placeholder-count="4">
+    <a class="route-card" href="{{ cat.listHref }}"><div class="route-top"><span class="route-dot" style="background:{{ cat.color }}"></span><span class="route-no">ROUTE {{ cat.routeNo }}</span></div><h3>{{ cat.name }}</h3><p>{{ cat.shortDescription }}</p><div class="route-bottom"><span>{{ cat.count }} รายการ</span><b style="color:{{ cat.color }}">ดูสินค้า →</b></div></a>
+  </sc-for></div>
+</div></section>
+
+<section class="value-strip"><div class="container value-grid">
+  <div class="value-item"><b>เรียนได้ทุกที่ ทุกเวลา</b><span>ใช้ได้ทั้งในห้องเรียนและที่บ้าน</span></div>
+  <div class="value-item"><b>สื่อพร้อมใช้</b><span>ลดเวลาเตรียมการสอนของครู</span></div>
+  <div class="value-item"><b>ฝึกซ้ำได้</b><span>ส่งเสริมการเรียนรู้ตามศักยภาพรายบุคคล</span></div>
+  <div class="value-item"><b>เชื่อมโยง Active Learning</b><span>จากความรู้สู่การคิดและลงมือทำ</span></div>
+</div></section>
+</main>
+<footer class="footer"><div class="container footer-inner"><div class="footer-left"><img src="logo-header.png" alt="Aksorn"><span>Simple. Smart. Effective.</span></div><div class="footer-actions"><a class="btn btn-ghost" href="https://online.fliphtml5.com/jzqtt/260629_b_Smart-Digital-Content-edit/" target="_blank" rel="noopener">ดู E-Catalog</a><a class="btn btn-primary" href="https://ain.aksorn.com/digital69" target="_blank" rel="noopener">ชม Demo</a></div></div></footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { categories: [], subject: 'all', level: 'all', q: '' };
+  componentDidMount() {
+    const FIXED_CATEGORIES = [
+      { slug: 'reading', name: 'อ่าน-เขียน พัฒนาภาษา', count: 121, color: '#d85443' },
+      { slug: 'math', name: 'คณิตศาสตร์', count: 25, color: '#f0c93e' },
+      { slug: 'stem', name: 'วิทยาศาสตร์ STEM/STEAM & CT/CS', count: 15, color: '#58bccb' },
+      { slug: 'life', name: 'ทักษะชีวิตและความรู้ทั่วไป', count: 20, color: '#7758ad' },
+    ];
+    
+    const descriptions = {
+      reading: 'อ่าน-เขียน พัฒนาภาษา (ภาษาไทย, ภาษาอังกฤษ, ภาษาต่างประเทศ)',
+      math: 'คณิตศาสตร์ (เสริมสร้างทักษะการคำนวณและกระบวนการคิด)',
+      stem: 'วิทยาศาสตร์ STEM/STEAM & CT/CS (วิทยาการคำนวณและนวัตกรรม)',
+      life: 'ทักษะชีวิตและความรู้ทั่วไป (บูรณาการ และสังคมศึกษา)'
+    };
+    
+    const categories = FIXED_CATEGORIES.map((c, i) => ({
+      ...c,
+      routeNo: i + 1,
+      shortDescription: descriptions[c.slug],
+      listHref: 'ProductList.dc.html?cat=' + c.slug
+    }));
+    
+    this.setState({ categories });
+  }
+  renderVals() {
+    // 🆕 อัปเดตเพิ่ม 'ภาษาต่างประเทศ' ในชุดข้อมูลให้ตรงตาราง Excel
+    const subjectOptions=['คณิตศาสตร์','บูรณาการ','ภาษาต่างประเทศ','ภาษาไทย','ภาษาอังกฤษ','วิทยาศาสตร์','สังคม'];
+    const levelOptions=['ปฐมวัย','ป.1','ป.2','ป.3','ป.4','ป.5','ป.6','ม.1','ม.2','ม.3','ม.4','ม.5','ม.6'];
+    const params=new URLSearchParams();
+    if(this.state.subject!=='all')params.set('subject',this.state.subject);
+    if(this.state.level!=='all')params.set('level',this.state.level);
+    if(this.state.q.trim())params.set('q',this.state.q.trim());
+    const qs=params.toString();
+    const searchHref='ProductList.dc.html?cat=all'+(qs?'&'+qs:'');
+    return {
+      categories:this.state.categories,
+      subject:this.state.subject,
+      level:this.state.level,
+      q:this.state.q,
+      subjectOptions,
+      levelOptions,
+      searchHref,
+      setSubject:e=>this.setState({subject:e.target.value}),
+      setLevel:e=>this.setState({level:e.target.value}),
+      setQ:e=>this.setState({q:e.target.value})
+    };
+  }
+}
+</script></body>
+</html>
